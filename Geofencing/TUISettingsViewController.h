@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+// Forward declarations
+@protocol TUIModalViewControllerDelegate;
+
 @interface TUISettingsViewController : UIViewController
+
+@property (nonatomic, weak) id<TUIModalViewControllerDelegate> delegate;
+
+@end
+
+@protocol TUIModalViewControllerDelegate <NSObject>
+
+- (void)modalViewAboutToBeDismissed;
 
 @end
