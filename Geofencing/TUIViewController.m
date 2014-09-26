@@ -8,10 +8,12 @@
 
 #import "TUIViewController.h"
 #import "TUISettingsViewController.h"
+#import "TUIAppDelegate.h"
 #import "Constants.h"
 #import <CoreLocation/CoreLocation.h>
+#include <stdlib.h>
 
-@interface TUIViewController () <CLLocationManagerDelegate, TUIModalViewControllerDelegate>
+@interface TUIViewController () <CLLocationManagerDelegate, TUIModalViewControllerDelegate, TUIAppNotificationDelegate>
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLCircularRegion *region1;
@@ -43,6 +45,9 @@
     [self stopMonitoringRegions];
     [self startMonitoringRegions];
     [self setupLabels];
+    
+    // become delegate for the apps local notifications
+    [(TUIAppDelegate *)[[UIApplication sharedApplication] delegate] setDelegate:self];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -64,6 +69,16 @@
 {
     _region1Label.textColor = [UIColor redColor];
     _region2Label.textColor = [UIColor blueColor];
+}
+
+#pragma mark - Hide/Show labels
+
+- (void)showAllLabels
+{
+}
+
+- (void)hideAllLabels
+{
 }
 
 
@@ -136,6 +151,15 @@
     {
         _region2Label.text = @"Inside Region 2";
     }
+    // send notifications
+    NSLog(@"Sending notification for %@", region.identifier);
+    UILocalNotification* localNotification = [[UILocalNotification alloc] init];
+    //localNotification.fireDate = [NSDate date];
+    NSString *alertBody = [region.identifier isEqualToString:REGION_1_IDENTIFIER] ? @"Check out this cool facts about Palma Cathedral!!" : @"Happy hour now at Tony's. You are right there!!";
+    localNotification.alertBody = alertBody;
+    localNotification.timeZone = [NSTimeZone defaultTimeZone];
+    localNotification.userInfo = @{@"regionId": region.identifier};
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }
 
 - (void)didExitRegion:(CLRegion *)region
@@ -159,7 +183,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    NSLog(@"Did update locations");
+    NSLog(@"Did update locations: %d", arc4random_uniform(100));
     CLLocation *location = [locations lastObject];
     // check for region 1
     if ([_region1 containsCoordinate:location.coordinate])
@@ -282,6 +306,7 @@
     }
 }*/
 
+
 #pragma mark - TUIModalViewController delegate
 
 - (void)modalViewAboutToBeDismissed
@@ -289,6 +314,15 @@
     [self stopMonitoringRegions];
     [self startMonitoringRegions];
 }
+
+
+#pragma mark - TUIModalViewController delegate
+
+- (void)receivedNotificationInRegion:(NSString *)regionIdentifier
+{
+    NSLog(@"Did receive local notification for: %@", regionIdentifier);
+}
+
 
 #pragma mark - User defaults
 

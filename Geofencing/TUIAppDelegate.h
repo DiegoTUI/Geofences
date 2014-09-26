@@ -8,8 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol TUIAppNotificationDelegate;
+
 @interface TUIAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property (weak, nonatomic) id<TUIAppNotificationDelegate> delegate;
+
+@end
+
+@protocol TUIAppNotificationDelegate <NSObject>
+
+- (void)receivedNotificationInRegion:(NSString *)regionIdentifier;
 
 @end

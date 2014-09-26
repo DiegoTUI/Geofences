@@ -43,4 +43,13 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notif {
+    NSLog(@"received local notification: %@", notif.alertBody);
+    // notify delegate
+    if (_delegate)
+    {
+        [_delegate receivedNotificationInRegion:notif.userInfo[@"regionId"]];
+    }
+}
+
 @end
