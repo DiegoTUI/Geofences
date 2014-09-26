@@ -124,6 +124,34 @@
 - (void)didEnterRegion:(CLRegion *)region
 {
     // notify here whatever you need to notify
+    NSLog(@"Did enter region: %@", region.identifier);
+    
+    _statusLabel.text = [NSString stringWithFormat:@"entered %@", region.identifier];
+    
+    if ([region.identifier isEqualToString:REGION_1_IDENTIFIER])
+    {
+        _region1Label.text = @"Inside Region 1";
+    }
+    if ([region.identifier isEqualToString:REGION_2_IDENTIFIER])
+    {
+        _region2Label.text = @"Inside Region 2";
+    }
+}
+
+- (void)didExitRegion:(CLRegion *)region
+{
+    NSLog(@"Did exit region: %@", region.identifier);
+    
+    _statusLabel.text = [NSString stringWithFormat:@"exited %@", region.identifier];
+    
+    if ([region.identifier isEqualToString:REGION_1_IDENTIFIER])
+    {
+        _region1Label.text = @"Outside Region 1";
+    }
+    if ([region.identifier isEqualToString:REGION_2_IDENTIFIER])
+    {
+        _region2Label.text = @"Outside Region 2";
+    }
 }
 
 
@@ -133,11 +161,52 @@
 {
     NSLog(@"Did update locations");
     CLLocation *location = [locations lastObject];
-    
+    // check for region 1
     if ([_region1 containsCoordinate:location.coordinate])
+    {
+        if (![_currentRegions containsObject:_region1])
+        {
+            [_currentRegions addObject:_region1];
+            if (!_isFirstLocationUpdate)
+            {
+                [self didEnterRegion:_region1];
+            }
+            else
+            {
+                _isFirstLocationUpdate = NO;
+            }
+        }
+    }
+    else
     {
         if ([_currentRegions containsObject:_region1])
         {
+            [_currentRegions removeObject:_region1];
+            [self didExitRegion:_region1];
+        }
+    }
+    // check for region 2
+    if ([_region2 containsCoordinate:location.coordinate])
+    {
+        if (![_currentRegions containsObject:_region2])
+        {
+            [_currentRegions addObject:_region2];
+            if (!_isFirstLocationUpdate)
+            {
+                [self didEnterRegion:_region2];
+            }
+            else
+            {
+                _isFirstLocationUpdate = NO;
+            }
+        }
+    }
+    else
+    {
+        if ([_currentRegions containsObject:_region2])
+        {
+            [_currentRegions removeObject:_region2];
+            [self didExitRegion:_region2];
         }
     }
     
