@@ -26,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *latitudeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *longitudeLabel;
 
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
+
 @property (strong, nonatomic) NSMutableSet *currentRegions;
 @property (nonatomic) BOOL isFirstLocationUpdate;
 
@@ -45,6 +47,7 @@
     [self stopMonitoringRegions];
     [self startMonitoringRegions];
     [self setupLabels];
+    [self hideWebView:YES];
     
     // become delegate for the apps local notifications
     [(TUIAppDelegate *)[[UIApplication sharedApplication] delegate] setDelegate:self];
@@ -69,16 +72,25 @@
 {
     _region1Label.textColor = [UIColor redColor];
     _region2Label.textColor = [UIColor blueColor];
+    
+    [self hideLabels:NO];
 }
 
-#pragma mark - Hide/Show labels
 
-- (void)showAllLabels
+#pragma mark - Hide/Show stuff
+
+- (void)hideLabels:(BOOL)hide
 {
+    _region1Label.hidden = hide;
+    _region2Label.hidden = hide;
+    _statusLabel.hidden = hide;
+    _latitudeLabel.hidden = hide;
+    _longitudeLabel.hidden = hide;
 }
 
-- (void)hideAllLabels
+- (void)hideWebView:(BOOL)hide
 {
+    _webView.hidden = hide;
 }
 
 
@@ -311,6 +323,8 @@
 
 - (void)modalViewAboutToBeDismissed
 {
+    [self hideLabels:NO];
+    [self hideWebView:YES];
     [self stopMonitoringRegions];
     [self startMonitoringRegions];
 }
@@ -321,6 +335,22 @@
 - (void)receivedNotificationInRegion:(NSString *)regionIdentifier
 {
     NSLog(@"Did receive local notification for: %@", regionIdentifier);
+    [self hideLabels:YES];
+    [self hideWebView:NO];
+    if ([regionIdentifier isEqualToString:REGION_1_IDENTIFIER])
+    {
+        //_backgroundImageView.hidden = NO;
+        NSURL *url = [NSURL URLWithString:@"http://en.wikipedia.org/wiki/Palma_Cathedral"];
+        NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+        [_webView loadRequest:requestObj];
+    }
+    if ([regionIdentifier isEqualToString:REGION_2_IDENTIFIER])
+    {
+        //_backgroundImageView.hidden = NO;
+        NSURL *url = [NSURL URLWithString:@"https://foursquare.com/v/tonys/51c66b0f498efa785357b011ΩΩΩ"];
+        NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+        [_webView loadRequest:requestObj];
+    }
 }
 
 
