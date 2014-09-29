@@ -214,6 +214,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Tui Travel A&D";
 				TargetAttributes = {
+					76C6D75B19D199F800A3D614 = {
+						DevelopmentTeam = C7L48ER389;
+					};
 					76C6D77F19D199F900A3D614 = {
 						TestTargetID = 76C6D75B19D199F800A3D614;
 					};
@@ -403,10 +406,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Geofencing/Geofencing-Prefix.pch";
 				INFOPLIST_FILE = "Geofencing/Geofencing-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -416,10 +422,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Geofencing/Geofencing-Prefix.pch";
 				INFOPLIST_FILE = "Geofencing/Geofencing-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -483,6 +492,7 @@
 				76C6D79319D199F900A3D614 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		76C6D79419D199F900A3D614 /* Build configuration list for PBXNativeTarget "GeofencingTests" */ = {
 			isa = XCConfigurationList;
@@ -491,6 +501,7 @@
 				76C6D79619D199F900A3D614 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -13,7 +13,7 @@
 #import <CoreLocation/CoreLocation.h>
 #include <stdlib.h>
 
-@interface TUIViewController () <CLLocationManagerDelegate, TUIModalViewControllerDelegate, TUIAppNotificationDelegate>
+@interface TUIViewController () <CLLocationManagerDelegate, TUIModalViewControllerDelegate, TUIAppNotificationDelegate, UIWebViewDelegate>
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLCircularRegion *region1;
@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *longitudeLabel;
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 @property (strong, nonatomic) NSMutableSet *currentRegions;
 @property (nonatomic) BOOL isFirstLocationUpdate;
@@ -48,9 +49,12 @@
     [self startMonitoringRegions];
     [self setupLabels];
     [self hideWebView:YES];
+    _backgroundImageView.hidden = YES;
     
     // become delegate for the apps local notifications
     [(TUIAppDelegate *)[[UIApplication sharedApplication] delegate] setDelegate:self];
+    // become the delegate for the web view
+    _webView.delegate = self;
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -339,20 +343,27 @@
     [self hideWebView:NO];
     if ([regionIdentifier isEqualToString:REGION_1_IDENTIFIER])
     {
-        //_backgroundImageView.hidden = NO;
+        _backgroundImageView.hidden = NO;
         NSURL *url = [NSURL URLWithString:@"http://en.wikipedia.org/wiki/Palma_Cathedral"];
         NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
         [_webView loadRequest:requestObj];
     }
     if ([regionIdentifier isEqualToString:REGION_2_IDENTIFIER])
     {
-        //_backgroundImageView.hidden = NO;
-        NSURL *url = [NSURL URLWithString:@"https://foursquare.com/v/tonys/51c66b0f498efa785357b011ΩΩΩ"];
+        _backgroundImageView.hidden = NO;
+        NSURL *url = [NSURL URLWithString:@"https://foursquare.com/v/tonys/51c66b0f498efa785357b011"];
         NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
         [_webView loadRequest:requestObj];
     }
 }
 
+
+#pragma mark - UIWebViewDelegate
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    _backgroundImageView.hidden = YES;
+}
 
 #pragma mark - User defaults
 
