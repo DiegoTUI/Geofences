@@ -111,6 +111,10 @@
 - (void)initLocationServices
 {
     _locationManager = [CLLocationManager new];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8"))
+    {
+        [_locationManager requestAlwaysAuthorization];
+    }
     //_locationManager.distanceFilter = 10.0;
     _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     _locationManager.delegate = self;
