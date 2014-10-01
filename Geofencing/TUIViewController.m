@@ -41,6 +41,7 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"viewDidLoad");
     [super viewDidLoad];
 	
     [self setUserDefaultsIfNeeded];
@@ -57,14 +58,21 @@
     _webView.delegate = self;
 }
 
--(void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
+    NSLog(@"viewWillAppear");
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    NSLog(@"viewDidAppear");
     [super viewDidAppear:animated];
     [self becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    NSLog(@"viewWillDisappear");
     [self resignFirstResponder];
     [super viewWillDisappear:animated];
 }
@@ -211,10 +219,6 @@
             {
                 [self didEnterRegion:_region1];
             }
-            else
-            {
-                _isFirstLocationUpdate = NO;
-            }
         }
     }
     else
@@ -234,10 +238,6 @@
             if (!_isFirstLocationUpdate)
             {
                 [self didEnterRegion:_region2];
-            }
-            else
-            {
-                _isFirstLocationUpdate = NO;
             }
         }
     }
@@ -263,6 +263,9 @@
     
     /*[_locationManager requestStateForRegion:_region1];
     [_locationManager requestStateForRegion:_region2];*/
+    
+    // No longer first update
+    _isFirstLocationUpdate = NO;
 }
 
 /*- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region

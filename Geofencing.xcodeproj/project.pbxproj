@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		763197EE19D9986300AA11E3 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 763197ED19D9986300AA11E3 /* Background.png */; };
 		76C6D76019D199F800A3D614 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76C6D75F19D199F800A3D614 /* Foundation.framework */; };
 		76C6D76219D199F800A3D614 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76C6D76119D199F800A3D614 /* CoreGraphics.framework */; };
 		76C6D76419D199F800A3D614 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76C6D76319D199F800A3D614 /* UIKit.framework */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		763197ED19D9986300AA11E3 /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Background.png; sourceTree = "<group>"; };
 		76C6D75C19D199F800A3D614 /* Geofencing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Geofencing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76C6D75F19D199F800A3D614 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		76C6D76119D199F800A3D614 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -124,6 +126,7 @@
 			children = (
 				76C6D76E19D199F900A3D614 /* TUIAppDelegate.h */,
 				76C6D76F19D199F900A3D614 /* TUIAppDelegate.m */,
+				763197ED19D9986300AA11E3 /* Background.png */,
 				76C6D77119D199F900A3D614 /* Main_iPhone.storyboard */,
 				76C6D77419D199F900A3D614 /* Main_iPad.storyboard */,
 				76C6D77719D199F900A3D614 /* TUIViewController.h */,
@@ -248,6 +251,7 @@
 			files = (
 				76C6D77619D199F900A3D614 /* Main_iPad.storyboard in Resources */,
 				76C6D77B19D199F900A3D614 /* Images.xcassets in Resources */,
+				763197EE19D9986300AA11E3 /* Background.png in Resources */,
 				76C6D77319D199F900A3D614 /* Main_iPhone.storyboard in Resources */,
 				76C6D76A19D199F800A3D614 /* InfoPlist.strings in Resources */,
 			);
