@@ -22,4 +22,8 @@
 
 - (void)receivedNotificationInRegion:(NSString *)regionIdentifier;
 
+- (void)didEnterBackground;
+
+- (void)didEnterForeground;
+
 @end

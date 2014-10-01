@@ -339,6 +339,16 @@
 
 #pragma mark - TUIModalViewController delegate
 
+- (void)didEnterBackground
+{
+    [_backgroundImageView setHidden:NO];
+}
+
+- (void)didEnterForeground
+{
+    [_backgroundImageView setHidden:YES];
+}
+
 - (void)receivedNotificationInRegion:(NSString *)regionIdentifier
 {
     NSLog(@"Did receive local notification for: %@", regionIdentifier);
